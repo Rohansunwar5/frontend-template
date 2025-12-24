@@ -69,11 +69,40 @@ const Hero: React.FC = () => {
           </h1>
         </div>
         
-        <div className="hero-cta">
-          <Button variant="outline" className="border-white/50 text-white hover:bg-white hover:text-black">
-            The Collection
+        <div className="hero-cta group relative">
+          <Button
+            variant="outline"
+            className="
+              relative
+              border-white/40
+              text-white
+              px-8 py-4
+              overflow-hidden
+            "
+          >
+            <span
+              className="
+                relative z-10
+                transition-colors duration-500
+                group-hover:text-black
+              "
+            >
+              The Collection
+            </span>
+
+            {/* Hover overlay */}
+            <span
+              className="
+                absolute inset-0
+                bg-white
+                opacity-0
+                group-hover:opacity-100
+                transition-opacity duration-700
+              "
+            />
           </Button>
         </div>
+
       </div>
 
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
