@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from '../../lib/gsap';
 import Button from '../ui/Button';
+import LazyImage from '../ui/LazyImage';
 
 const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,14 +45,16 @@ const Hero: React.FC = () => {
 
   return (
     <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-stone-200">
-      <div 
+      <div
         ref={imageRef}
         className="absolute inset-0 w-full h-[120%] -top-[10%]"
       >
-        <img 
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2500" 
+        <LazyImage
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2500"
           alt="Luxury Architecture"
-          className="w-full h-full object-cover grayscale-[20%] brightness-[0.85]"
+          priority
+          className="w-full h-full"
+          imgClassName="w-full h-full object-cover grayscale-[20%] brightness-[0.85]"
         />
       </div>
 
@@ -68,7 +71,7 @@ const Hero: React.FC = () => {
             Infinite Spaces
           </h1>
         </div>
-        
+
         <div className="hero-cta group relative">
           <Button
             variant="outline"

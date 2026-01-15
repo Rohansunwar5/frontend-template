@@ -3,13 +3,14 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from '../../lib/gsap';
 import { PROPERTIES } from '../../../constants';
+import LazyImage from '../ui/LazyImage';
 
 const Developments: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const sections = gsap.utils.toArray('.dev-section');
-    
+
     sections.forEach((section: any) => {
       const img = section.querySelector('.dev-img');
       const text = section.querySelector('.dev-text');
@@ -47,17 +48,18 @@ const Developments: React.FC = () => {
       </div>
 
       {PROPERTIES.map((prop, idx) => (
-        <div 
-          key={prop.id} 
+        <div
+          key={prop.id}
           className={`dev-section relative min-h-screen flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center px-6 md:px-24 py-24 gap-12 md:gap-24 overflow-hidden`}
         >
           <div className="w-full md:w-3/5 aspect-[16/9] md:aspect-[4/5] overflow-hidden relative group">
             <Link to={`/developments/${prop.id}`}>
               <div className="dev-img w-full h-[120%] absolute -top-[10%] left-0">
-                <img 
-                  src={prop.image} 
+                <LazyImage
+                  src={prop.image}
                   alt={prop.name}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  className="w-full h-full"
+                  imgClassName="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </div>
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
@@ -72,7 +74,7 @@ const Developments: React.FC = () => {
             <p className="text-stone-400 font-light leading-relaxed max-w-sm">
               {prop.description}
             </p>
-            <Link 
+            <Link
               to={`/developments/${prop.id}`}
               className="group flex items-center gap-4 text-xs tracking-widest uppercase mt-4"
             >

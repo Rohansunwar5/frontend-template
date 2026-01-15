@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from '@/src/components/layout/Navbar';
 import MenuOverlay from '@/src/components/layout/MenuOverlay';
 import Footer from '@/src/components/sections/Footer';
 import useLenis from '@/src/hooks/useLenis';
-import Home from '@/src/pages/Home';
-import PropertyDetail from '@/src/pages/PropertyDetail';
-import Developments from '@/src/pages/Developments';
-import Contact from '@/src/pages/Contact';
-import Vision from '@/src/pages/Vision';
 import { gsap } from '@/src/lib/gsap';
-import Services from './components/sections/Services';
-import ServicesPage from './pages/ServicesPage';
+
+// Lazy Load Pages
+const Home = React.lazy(() => import('@/src/pages/Home'));
+const PropertyDetail = React.lazy(() => import('@/src/pages/PropertyDetail'));
+const Developments = React.lazy(() => import('@/src/pages/Developments'));
+const Contact = React.lazy(() => import('@/src/pages/Contact'));
+const Vision = React.lazy(() => import('@/src/pages/Vision'));
+const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -159,15 +160,17 @@ const App: React.FC = () => {
       />
 
       <main className="page-wrapper">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<Vision />} />
-          <Route path='/services' element={<ServicesPage />} />
-          <Route path="/developments" element={<Developments />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/developments/:slug" element={<PropertyDetail />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
+        <Suspense fallback={<div className="h-screen w-full bg-[#1a1a1a]" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<Vision />} />
+            <Route path='/services' element={<ServicesPage />} />
+            <Route path="/developments" element={<Developments />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/developments/:slug" element={<PropertyDetail />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <Footer />

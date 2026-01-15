@@ -1,9 +1,10 @@
-
 import React, { useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PROPERTIES } from '../../constants';
 import { gsap } from '../lib/gsap';
 import Button from '../components/ui/Button';
+import LazyImage from '../components/ui/LazyImage';
+import SEO from '../components/seo/SEO';
 
 const PropertyDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -12,7 +13,7 @@ const PropertyDetail: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     const ctx = gsap.context(() => {
       gsap.from('.prop-header-content', {
         y: 40,
@@ -42,16 +43,27 @@ const PropertyDetail: React.FC = () => {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [slug]);
 
   if (!property) return <div className="min-h-screen flex items-center justify-center">Property not found.</div>;
 
   return (
     <div className="bg-[#f5f5f0]">
+      <SEO
+        title={property.name}
+        description={property.description}
+        image={property.image}
+      />
       {/* Hero */}
       <section className="prop-hero relative h-[90vh] overflow-hidden bg-stone-900">
         <div className="prop-hero-img absolute inset-0 w-full h-[120%] -top-[10%]">
-          <img src={property.image} className="w-full h-full object-cover brightness-[0.7]" alt={property.name} />
+          <LazyImage
+            src={property.image}
+            className="w-full h-full"
+            imgClassName="w-full h-full object-cover brightness-[0.7]"
+            alt={property.name}
+            priority
+          />
         </div>
         <div className="absolute inset-0 flex flex-col justify-end px-6 md:px-24 pb-24 text-white">
           <h1 className="prop-header-content text-5xl md:text-9xl serif italic font-light mb-4">{property.name}</h1>
@@ -100,10 +112,11 @@ const PropertyDetail: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           {property.gallery.map((img, i) => (
             <div key={i} className={`overflow-hidden aspect-[4/5] ${i % 3 === 0 ? 'md:col-span-2 aspect-video' : ''}`}>
-              <img 
-                src={img} 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" 
-                alt={`Detail ${i}`} 
+              <LazyImage
+                src={img}
+                className="w-full h-full"
+                imgClassName="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
+                alt={`Detail ${i}`}
               />
             </div>
           ))}
