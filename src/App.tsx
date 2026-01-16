@@ -8,11 +8,8 @@ import { gsap } from '@/src/lib/gsap';
 
 // Lazy Load Pages
 const Home = React.lazy(() => import('@/src/pages/Home'));
-const PropertyDetail = React.lazy(() => import('@/src/pages/PropertyDetail'));
 const Developments = React.lazy(() => import('@/src/pages/Developments'));
 const Contact = React.lazy(() => import('@/src/pages/Contact'));
-const Vision = React.lazy(() => import('@/src/pages/Vision'));
-const ServicesPage = React.lazy(() => import('./pages/ServicesPage'));
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -163,11 +160,11 @@ const App: React.FC = () => {
         <Suspense fallback={<div className="h-screen w-full bg-[#1a1a1a]" />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<Vision />} />
+            {/* <Route path="/about" element={<Vision />} />
             <Route path='/services' element={<ServicesPage />} />
             <Route path="/developments" element={<Developments />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/developments/:slug" element={<PropertyDetail />} />
+            <Route path="/developments/:slug" element={<PropertyDetail />} /> */}
             <Route path="*" element={<Home />} />
           </Routes>
         </Suspense>

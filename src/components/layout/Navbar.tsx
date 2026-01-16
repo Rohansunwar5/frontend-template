@@ -40,24 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isMenuOpen }) => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-[120] mix-blend-difference navbar-container px-6 py-8 md:px-12 md:py-10 flex justify-between items-center">
-      <Link to="/" className="text-white text-2xl md:text-3xl tracking-tighter serif font-medium z-10">
-        SHALICON
-      </Link>
-      <div className="hidden md:flex items-center gap-12 text-white/70 text-[10px] tracking-[0.3em] uppercase font-light">
-        <Link to="/about" className="hover:text-white transition-colors">Vision</Link>
-        <Link to="/services" className="hover:text-white transition-colors">Services</Link>
-        <Link to="/developments" className="hover:text-white transition-colors">Portfolio</Link>
-        <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-      </div>
-      
-      <button 
-        onClick={onMenuToggle}
-        className="group flex flex-col items-end gap-1.5 focus:outline-none z-10"
-        aria-label="Toggle Menu"
-      >
-        <span className={`h-[1px] bg-white transition-all duration-500 ease-expo ${isMenuOpen ? 'w-8 -rotate-45 translate-y-[3.5px]' : 'w-8'}`}></span>
-        <span className={`h-[1px] bg-white transition-all duration-500 ease-expo ${isMenuOpen ? 'w-8 rotate-45 -translate-y-[3.5px]' : 'w-5 group-hover:w-8'}`}></span>
-      </button>
+      text
     </nav>
   );
 };
